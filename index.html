@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test | RageByters Arcade</title>
+    <meta name="description" content="Test your typing speed in the RageByters arcade. High-octane typing for true rage gamers.">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- AOS Animation -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Retro Grid Background -->
+    <canvas id="bg-canvas"></canvas>
+
+    <nav>
+        <a href="https://ragebyters.github.io/" class="nav-logo">
+            <img src="https://ragebyters.github.io/assets/images/logo.png" alt="RageByters Logo" style="height: 30px;">
+            RageByters
+        </a>
+        <div class="nav-links">
+            <a href="https://ragebyters.github.io/#games"><i class="fas fa-gamepad"></i> Arcade</a>
+        </div>
+    </nav>
+
+    <main>
+        <header data-aos="fade-down">
+            <h1>⚡ TYPING TEST ⚡</h1>
+            <p class="subtitle">MAXIMUM VELOCITY</p>
+        </header>
+
+        <section class="game-container" data-aos="zoom-in">
+            <div class="stats-container">
+                <div class="stat-box">
+                    <div class="stat-value" id="wpm">0</div>
+                    <div class="stat-label">WPM</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="accuracy">100%</div>
+                    <div class="stat-label">ACCURACY</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="timer">60s</div>
+                    <div class="stat-label">TIME</div>
+                </div>
+            </div>
+
+            <div class="typing-area-wrapper">
+                <div id="text-display" class="text-display">
+                    <!-- Text will be generated here -->
+                    Loading challenge...
+                </div>
+                <textarea id="typing-input" class="typing-input" autofocus placeholder="Start typing here..."></textarea>
+            </div>
+
+            <div class="controls">
+                <button id="restart-btn" class="btn-primary">
+                    <i class="fas fa-redo"></i> RESTART
+                </button>
+                <div class="difficulty-picker">
+                    <button class="diff-btn active" data-time="60">60s</button>
+                    <button class="diff-btn" data-time="30">30s</button>
+                    <button class="diff-btn" data-time="15">15s</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="results-modal" id="results-modal">
+            <div class="results-content">
+                <h2>BATTLE REPORT</h2>
+                <div class="final-stats">
+                    <div class="final-stat">
+                        <span class="label">SPEED</span>
+                        <span class="value" id="final-wpm">0 WPM</span>
+                    </div>
+                    <div class="final-stat">
+                        <span class="label">PRECISION</span>
+                        <span class="value" id="final-accuracy">0%</span>
+                    </div>
+                </div>
+                <button id="close-results" class="btn-secondary">BACK TO ACTION</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>RageByters © 2026 | Built for pure performance.</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="background.js"></script>
+    <script src="script.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+    </script>
+</body>
+</html>
