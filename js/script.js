@@ -16,6 +16,9 @@
     let charIndex = 0;
     let mistakes = 0;
 
+    let wpmHistory = [];
+    let chartInstance = null;
+
     function getRandomText() {
         let text = "";
         for (let i = 0; i < 40; i++) {
@@ -46,6 +49,7 @@
             isPlaying = false;
             charIndex = 0;
             mistakes = 0;
+            wpmHistory = [];
             clearInterval(timer);
 
             wpmDisplay.innerText = "0";
@@ -61,7 +65,8 @@
         if (timeLeft > 0) {
             timeLeft--;
             timerDisplay.innerText = timeLeft + "s";
-            updateStats();
+            const currentWpm = updateStats();
+            wpmHistory.push(currentWpm);
         } else {
             endGame();
         }
@@ -77,6 +82,8 @@
 
         const accuracy = charIndex > 0 ? Math.round(((charIndex - mistakes) / charIndex) * 100) : 100;
         accuracyDisplay.innerText = accuracy + "%";
+        
+        return wpm;
     }
 
     function handleTyping() {
@@ -129,7 +136,61 @@
 
         finalWpm.innerText = wpmDisplay.innerText + " WPM";
         finalAccuracy.innerText = accuracyDisplay.innerText;
+        
+        renderChart();
         resultsModal.classList.add('active');
+    }
+
+    function renderChart() {
+        const ctx = document.getElementById('wpm-chart').getContext('2d');
+        
+        if (chartInstance) {
+            chartInstance.destroy();
+        }
+
+        chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: wpmHistory.map((_, i) => i + 1),
+                datasets: [{
+                    label: 'WPM',
+                    data: wpmHistory,
+                    borderColor: '#00e5ff',
+                    backgroundColor: 'rgba(0, 229, 255, 0.1)',
+                    borderWidth: 2,
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: '#b0b0b0'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
     }
 
     document.addEventListener('DOMContentLoaded', () => {
